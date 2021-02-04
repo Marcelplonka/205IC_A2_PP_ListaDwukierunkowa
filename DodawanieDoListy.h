@@ -14,14 +14,7 @@ void DodajDoSrodka(TypElementu **glowa, int wartosc, int pozycja);
 
 void DodajNaPoczatekListy(TypElementu **glowa, int wartosc);
 
-void WypiszOdPoczatku(TypElementu *glowa);
-
-void WypiszOdKonca(TypElementu *glowa);
-
-int rozmiarListy(TypElementu *glowa);
-
-void UsunZListy(TypElementu **glowa, int wartosc, int pozycja);
-
+//------------------------------------------------------------------------------
 
 void DodajNaPoczatekListy(TypElementu **glowa, int wartosc) {
 
@@ -82,95 +75,5 @@ void DodajDoSrodka(TypElementu **glowa, int wartosc, int pozycja) {
             obecny->next->next = obecny->next;
 
         }
-    }
-}
-
-//------------------------------------------------------------------------------
-
-void WypiszOdPoczatku(TypElementu *glowa) {
-    printf("\n");
-    if (glowa == NULL) printf("Lista jest pusta");
-    else {
-        TypElementu *obecny = glowa;
-        do {
-            printf(" %i", obecny->value);
-            obecny = obecny->next;
-        } while (obecny != NULL);
-    }
-}
-
-void WypiszOdKonca(TypElementu *glowa) {
-    printf("\n");
-    if (glowa == NULL) printf("Lista jest pusta");
-    else {
-        TypElementu *obecny = glowa;
-        while (obecny->next != NULL) {
-            obecny = obecny->next;
-        }
-
-
-        do {
-            printf("%i", obecny->value);
-            printf("\n");
-            obecny = obecny->prev;
-        } while (obecny != NULL);
-
-    }
-}
-
-
-int rozmiarListy(TypElementu *glowa) {
-    int obecny = 0;
-    if (glowa == NULL) return obecny;
-    else {
-        TypElementu *obecny = glowa;
-        do {
-            obecny++;
-            obecny = obecny->next;
-        } while (obecny != NULL);
-    }
-    return obecny;
-}
-
-//------------------------------------------------------------------------------
-
-void UsunZListy(TypElementu **glowa, int wartosc, int pozycja) {
-
-    if (pozycja == 1) {
-        if (*glowa != NULL) {
-            if ((*glowa)->next == NULL) {
-                *glowa = NULL;
-            } else {
-                TypElementu *tmp;
-                tmp = (*glowa)->next;
-                free(*glowa);
-                *glowa = tmp;
-                (*glowa)->prev = NULL;
-            }
-
-        } else {
-
-            TypElementu *obecny = *glowa;
-            while (obecny->next->next != NULL) {
-                obecny = obecny->next;
-            }
-            free(obecny->next);
-            obecny->next = NULL;
-        }
-
-    } else {
-        TypElementu *obecny = *glowa;
-        TypElementu *tmp;
-
-        int i = 0;
-        while (obecny->next != NULL && i < pozycja) {
-            obecny = obecny->next;
-            i++;
-        }
-
-        tmp = obecny->next;
-        obecny->next = tmp->next;
-        obecny->next->prev = obecny;
-        free(tmp);
     }
 }
